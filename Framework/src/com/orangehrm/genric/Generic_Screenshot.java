@@ -15,7 +15,7 @@ public class Generic_Screenshot implements Framework_Constants{
 	public static void getPhoto(WebDriver driver,ITestResult result) {
 		
 		Date d=new Date();
-		String converted = d.toString().replaceAll("/", "-");
+		String converted = d.toString().replaceAll(":", "-");
 		TakesScreenshot ts=(TakesScreenshot) driver;
 		File temp = ts.getScreenshotAs(OutputType.FILE);
 		File perm=new File(SCREENSHOT_PATH+converted+result.getName()+".png");

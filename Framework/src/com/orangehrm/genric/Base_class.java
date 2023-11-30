@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -22,11 +23,13 @@ public class Base_class implements Framework_Constants{
 	public WebDriverWait wait;
 	public Login_repo login;
 	public ExtentTest test;
+	public ExtentReports report;
+	public ExtentSparkReporter reporter;
 	
 	@BeforeTest
 	public void report_configure() {
-		ExtentSparkReporter reporter=new ExtentSparkReporter(EXTENT_PATH);
-		ExtentReports report=new ExtentReports();
+		reporter=new ExtentSparkReporter(EXTENT_PATH);
+		report=new ExtentReports();
 		report.attachReporter(reporter);
 		test = report.createTest("Orange HRM").assignAuthor("Sandeep");
 	}
@@ -59,5 +62,10 @@ public class Base_class implements Framework_Constants{
 	@AfterClass
 	public void closeApp() {
 		driver.quit();
+	}
+	
+	@AfterTest
+	public void close_report_configuration() {
+		report.flush();
 	}
 }
